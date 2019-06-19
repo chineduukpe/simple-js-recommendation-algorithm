@@ -4,7 +4,7 @@
  */
 const readFile = file => {
     let rawFile = new XMLHttpRequest();
-    rawFile.open("GET",file,false);
+    rawFile.open("GET", file, false);
     rawFile.onreadystatechange = () => {
         if (rawFile.readyState === 4) {
             if (rawFile.status === 200 || rawFile.status == 0) {
@@ -19,7 +19,7 @@ const readFile = file => {
 /**
  * Convert A CSV file to Json
  */
-const csvToJson = csv =>{
+const csvToJson = csv => {
     // let lines = csv.split("/\r\n|\n/");
     let lines = csv.split("\n");
 
@@ -27,12 +27,12 @@ const csvToJson = csv =>{
 
     let headers = lines[0].split(',');
 
-    for(let i = 1; i < lines.length; i++){
+    for (let i = 1; i < lines.length; i++) {
         let obj = {}
 
         let currentLine = lines[i].split(',');
-        
-        for(let j = 0; j < headers.length; j++){
+
+        for (let j = 0; j < headers.length; j++) {
             obj[headers[j]] = currentLine[j];
         }
         result.push(obj);

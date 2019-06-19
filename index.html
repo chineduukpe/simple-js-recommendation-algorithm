@@ -1,21 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<title>RECOMMENDATION</title>
+	<style>
+		.container {
+			width: 100%;
+			min-height: 100vh;
+			border: 1px solid black;
+		}
+
+		.data-pane {
+			width: 80%;
+			margin: 0 auto;
+			display: flex;
+			height: 40vh;
+			box-shadow: 1px 1px 3px 3px .6;
+		}
+
+		.card {
+			display: flex;
+			flex-direction: column;
+			text-align: center;
+			color: #45ac45;
+			max-height: 60vh;
+			overflow: scroll;
+		}
+
+		.uploads {
+			width: 40%;
+		}
+
+		.recommendations {
+			width: 40%;
+			color: black;
+		}
+
+		@media (max-width: 1200px) {
+			.data-pane {
+				height: 300px;
+				margin-bottom: 30px;
+			}
+		}
+	</style>
 </head>
+
 <body>
-	<p>Training Data</p>
-	<input type="file" name="datafile"> <br><br><br>
-	<p>Student Data</p>
-	<input type="file" name="studentfile"> <br>
-	<p>Fields Data</p>
-	<input type="file" name="fieldsfile"> <br>
 
+	<div class="container">
+		<div class="data-pane">
+			<div class="uploads">
+				<p>Training Data</p>
+				<input type="file" name="datafile"> <br><br><br>
+				<p>Student Data</p>
+				<input type="file" name="studentfile"> <br>
+				<p>Fields Data</p>
+				<input type="file" name="fieldsfile">
+				<input type="button" value="Compute" style="padding: 1em 2em; color:#45ac45; background: #fff">
+			</div>
+			<div class="recommendations">
 
-<script type="text/javascript" src="jquery.min.js"></script>
-<script type="text/javascript" src="training-data.js"></script>
-<script type="text/javascript" src="utilities.js"></script>
-<script type="text/javascript" src="app.js"></script>
+			</div>
+
+		</div>
+		<div class="result">
+			<div class="card">
+
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="training-data.js"></script>
+	<script type="text/javascript" src="utilities.js"></script>
+	<script type="text/javascript" src="app.js"></script>
 </body>
+
 </html>
