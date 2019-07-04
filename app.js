@@ -1,6 +1,9 @@
 $(document).ready(function () {
 	console.log('App Started!')
 
+	let training_data1; //Parsed CSV to JSON data training data
+	let student_result1; // Parsed CSV to JSON student to recommend field
+	let fields_data1;
 	let training_data; //Parsed CSV to JSON data training data
 	let student_result; // Parsed CSV to JSON student to recommend field
 	let fields_data;
@@ -11,13 +14,20 @@ $(document).ready(function () {
 	let end_time = 0;
 	let counter = 0;
 
+	function copyData() {
+		training_data = [...training_data1];
+		student_result = [...student_result1];
+		fields_data =  [...fields_data1];
+		
+	}
+
 	// Get training data.
 	$('input[name=datafile]').change(function (e) {
 		let training_file = $(this).val();
 
 		let fileStream = readFile(training_file);
 
-		training_data = csvToJson(fileStream)
+		training_data1 = csvToJson(fileStream)
 	});
 
 	// Get the recommending student data
@@ -26,7 +36,7 @@ $(document).ready(function () {
 
 		let fileStream = readFile(student_file);
 
-		student_result = csvToJson(fileStream)
+		student_result1 = csvToJson(fileStream)
 
 	});
 	// Get the fields file
@@ -35,11 +45,18 @@ $(document).ready(function () {
 
 		let fileStream = readFile(fields_file);
 
-		fields_data = csvToJson(fileStream)
+		fields_data1 = csvToJson(fileStream)
 
 	})
 
 	$('input[type=button]').click(function () {
+		console.log('TRAINING DATA')
+		console.log(training_data)
+		console.log('STUDENT DATA')
+		console.log(student_result)
+		console.log('FIELDS DATA')
+		console.log(fields_data)
+		copyData();
 		if (!(training_data && student_result && fields_data)) {
 			$('.card').css('color', 'red');
 			$('.card').append("<br>\t\t YOU MUST ADD ALL TRAINING DATA....<br>")
@@ -70,7 +87,7 @@ $(document).ready(function () {
 								}
 								if (counter == 10) {
 									clearInterval(interval_loop)
-									compute()
+									compute();
 								}
 							}, 300)
 						}, 1500)
@@ -83,16 +100,22 @@ $(document).ready(function () {
 
 	// COMPUTE FUNCTION
 	const compute = function (e) {
-
+		copyData()
 		/**
 		 * CHECK IF TRAINING DATA, STUDENT RECORD AND MASTERS FIELDS HAS BEEN SET
 		 */
+		console.log('TRAINING DATA')
+		console.log(training_data)
+		console.log('STUDENT DATA')
+		console.log(student_result)
+		console.log('FIELDS DATA')
+		console.log(fields_data)
 		if (training_data && student_result && fields_data) {
 			console.log('**********All Files Loaded successfully\n*************************************\n\n')
 			console.log('\t\t READY TO CALCULATE SIMILARITY INDEX....\n\n')
-			if (training_data.length < 3 || fields_data.length < 3) {
+			if (training_data.length < 10 || fields_data.length < 10) {
 				$('.card').css('color', 'red');
-				$('.card').append("<br>\t\t The training data is not valid,<br>")
+				$('.card').append("<br>\t\t Too few data to train with.,<br>")
 				$('.card').append("<br>\t\t  It is advisable to use a large dataset greater than 10 records..<br>")
 				return;
 			}
@@ -251,7 +274,7 @@ $(document).ready(function () {
 				console.log(field.field + "\t\t\t\t\t" + Math.abs((field.sum - field.sub) / (field.passed + field.failed)))
 			})
 
-			$('.recommendations').append("<br><h3>TOP 5 RECOMMENDED FIELDS<h3> ");
+			$('.recommendations').append(`<br><h3>TOP 5 RECOMMENDED FIELDS<h3> for ${student_result[0]['id']} `);
 			for (let i = 0; i < (sorted.length > 4 ? 5 : sorted.length); i++) {
 				$('.recommendations').append("<br><h5 style='color: #000; font-size: .9em; margin: 0px auto; padding: 5px; font-family: open-sans'> " + (i + 1) + ": " + sorted[i]['field'] + "</h5>");
 			}

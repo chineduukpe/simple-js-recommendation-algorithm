@@ -26,6 +26,7 @@
 			color: #45ac45;
 			max-height: 60vh;
 			overflow: scroll;
+			margin-top: 100px;
 		}
 
 		.uploads {
@@ -33,7 +34,7 @@
 		}
 
 		.recommendations {
-			width: 40%;
+			width: 60%;
 			color: black;
 		}
 
@@ -52,11 +53,11 @@
 		<div class="data-pane">
 			<div class="uploads">
 				<p>Training Data</p>
-				<input type="file" name="datafile"> <br><br><br>
+				<input id="training-data" type="file" name="datafile"> <br><br><br>
 				<p>Student Data</p>
-				<input type="file" name="studentfile"> <br>
+				<input id="student-data" type="file" name="studentfile"> <br>
 				<p>Fields Data</p>
-				<input type="file" name="fieldsfile">
+				<input id="field-data" type="file" name="fieldsfile">
 				<input type="button" value="Compute" style="padding: 1em 2em; color:#45ac45; background: #fff">
 			</div>
 			<div class="recommendations">

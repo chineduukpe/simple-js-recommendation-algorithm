@@ -13,6 +13,7 @@ const readFile = file => {
         }
     }
     rawFile.send(null);
+    console.log(rawFile.responseText)
     return rawFile.responseText
 }
 
